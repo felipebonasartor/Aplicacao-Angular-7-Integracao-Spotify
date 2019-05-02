@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-spotify-callback-token',
@@ -7,12 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SpotifyCallbackTokenComponent implements OnInit {
 
-  constructor() {
-    console.log('Passou pelo Construtor.')
+  constructor(private router: Router) {
+    this.router.navigate(['/user'])
   }
 
   ngOnInit() {
-    console.log('Passou pelo OnInit.')
+
   }
 
 }
