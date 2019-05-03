@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivateChild } from '@angular/router';
 import { fromPairs } from 'lodash';
 
-import { SpotifyAuthResponse } from '../shared/spotify-auth-response.i';
+import { SpotifyAuthResponse } from '../../interfaces/spotify-auth-response.i';
 
 @Injectable()
 export class AuthGuard implements CanActivate, CanActivateChild {

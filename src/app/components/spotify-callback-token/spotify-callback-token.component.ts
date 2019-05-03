@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-spotify-callback-token',
+  selector: 'spotify-callback-token',
   templateUrl: './spotify-callback-token.component.html',
   styleUrls: ['./spotify-callback-token.component.sass']
 })
