@@ -1,3 +1,12 @@
-<p>
-  spotify-user works!
-</p>
+<div class="col-md-6">
+  <div class="form-group">
+    <div class="row">Nome: {{user.display_name}}</div>
+    <div class="row">País: {{user.country}}</div>
+    <div class="row">E-mail: {{user.email}}</div>
+    <div class="row">Seguidores: {{user.followers?.total}}</div>
+  </div>
+</div>
+
+<a [routerLink]="['/user/playlist']" class="btn btn-success">
+  <i class="fa fa-ban" aria-hidden="true"></i> Playlist
+</a>

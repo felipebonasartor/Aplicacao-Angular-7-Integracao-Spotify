@@ -13,13 +13,13 @@ export class SpotifyUserComponent implements OnInit {
 
   public user: {} = {};
 
-  constructor(private spotifyService: SpotifyService) { }
-
   private stream: Subscription | null = null;
+
+  constructor(private spotifyService: SpotifyService) { }
 
   ngOnInit() {
     let stream = this.spotifyService.getUserProfile();
-    
+
     this.stream = stream.subscribe((x:{}) => this.user = x);
   }
 

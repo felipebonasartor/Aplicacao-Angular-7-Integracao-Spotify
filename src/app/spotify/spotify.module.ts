@@ -7,13 +7,13 @@ import { SpotifyLoginComponent } from './spotify-login/spotify-login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SpotifyUserComponent } from './spotify-user/spotify-user.component';
 import { SpotifyCallbackTokenComponent } from './spotify-callback-token/spotify-callback-token.component';
-import { AuthGuard } from '../services/auth.guard';
 import { SpotifyService } from '../services/spotify-service';
+import { SpotifyUserPlaylistComponent } from './spotify-user-playlist/spotify-user-playlist.component';
 
 @NgModule({
-    declarations: [SpotifyLoginComponent, SpotifyUserComponent, SpotifyCallbackTokenComponent],
+    declarations: [SpotifyLoginComponent, SpotifyUserComponent, SpotifyCallbackTokenComponent, SpotifyUserPlaylistComponent],
     imports: [HttpClientModule, CommonModule, RouterModule, FormsModule, ReactiveFormsModule],
-    providers: [AuthGuard, SpotifyService],
+    providers: [SpotifyService],
     exports: [SpotifyLoginComponent]    
 })
 export class SpotifyModule { }
