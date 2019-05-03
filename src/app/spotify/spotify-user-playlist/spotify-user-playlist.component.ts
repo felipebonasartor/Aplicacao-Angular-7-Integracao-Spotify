@@ -14,7 +14,7 @@ export class SpotifyUserPlaylistComponent implements OnInit {
   playlist: any = { name: '', description: '' };
 
   public userPlaylist: {} = {};
-
+  private playlistFormShow: boolean;  
   private stream: Subscription | null = null;
 
   constructor(private spotifyService: SpotifyService, formBuilder: FormBuilder, ) {
@@ -23,12 +23,16 @@ export class SpotifyUserPlaylistComponent implements OnInit {
         Validators.required, Validators.maxLength(100)
       ])],
       description: ['', Validators.compose([
-        Validators.required, Validators.maxLength(300)
+        Validators.maxLength(300)
       ])]
     });
   }
 
   ngOnInit() {
+    this.loadPlaylist();
+  }
+
+  loadPlaylist() {
     let stream = this.spotifyService.getUserPlaylist();
 
     this.stream = stream.subscribe((x: {}) => this.userPlaylist = x);
@@ -40,10 +44,21 @@ export class SpotifyUserPlaylistComponent implements OnInit {
     }
   }
 
+  addPlaylist(){
+    this.playlistFormShow = true;
+  }
+
+  cancelPlaylist(){
+    this.playlistFormShow = false;
+  }
+
   save(event) {
     event.preventDefault();
 
     this.spotifyService.createPlaylist(this.playlist)
-      .subscribe(playlist => this.playlist.items.push(playlist));
+      .subscribe(result => {
+        this.playlistFormShow = false;
+        this.loadPlaylist();
+      });
   }
 }

@@ -5,14 +5,14 @@ import { BehaviorSubject } from 'rxjs';
 import { catchError } from 'rxjs/operators/catchError';
 import { tap } from 'rxjs/operators/tap';
 import { of } from 'rxjs/observable/of';
+import { SpotifyUser } from '../shared/spotify-user';
 
 @Injectable()
 export class SpotifyService {
 
 
     private apiUserProfileUrl: string = 'https://api.spotify.com/v1/me';
-    private apiUserPlaylistUrl: string = 'https://api.spotify.com/v1/me/playlists';
-    private apiCreatePlaylistUrl: string = 'https://api.spotify.com/v1/playlists';
+    private apiUserPlaylistUrl: string = 'https://api.spotify.com/v1/me/playlists';    
 
     private user: {} = {};
     private user$: BehaviorSubject<{}>;
@@ -36,6 +36,7 @@ export class SpotifyService {
         return this.http.get(this.apiUserProfileUrl, this.getHttpOptions()).pipe(
             tap((user: {}) => {
                 this.user$.next(this.user);
+                localStorage.setItem('spotifyUserId', (user as any).id);                
             }),
             catchError(this.handleError('getUserProfile'))
         );
@@ -50,8 +51,10 @@ export class SpotifyService {
         );
     }
 
-    public createPlaylist(playlist: {}): Observable<{}> {
-        return this.http.post(this.apiCreatePlaylistUrl, playlist, this.getHttpOptions())
+    public createPlaylist(playlist: {}): Observable<{}> {        
+        let spotifyUserId = localStorage.getItem('spotifyUserId');
+        let apiCreatePlaylistUrl = `https://api.spotify.com/v1/users/${spotifyUserId}/playlists`;
+        return this.http.post(apiCreatePlaylistUrl, playlist, this.getHttpOptions())
             .pipe(
                 catchError(this.handleError('createPlaylist'))
             );
@@ -66,7 +69,7 @@ export class SpotifyService {
 
     getHttpOptions() {
         const access_token = localStorage.getItem('access_token');
-        // const access_token = 'BQAyZW0m0jCDYKbtINnrraxz8I0R0uo3C5I9FGr5zeaYzCsEEa81fU9RkqP8LJSfrXnl5oH8oXbUmrFZ_4s8GuMbKV71SnTWq9u7yguobcYj7f0l900jx65SOAscktlj7mmuFWmWcr-y4FR5RLI13QcoLr6mNSWdwGIQbjtm72o';
+        // const access_token = 'BQAbTx_EYVhFI9gmXSXU3wKKcsitCcmMn5NTgXZB-7wucgT5YOYLdGepTrxkz5Nsy9IWLA_afgf7Em32M26WCZW0oP4_YFrpIvGmQE40uKgzSfLRhHl7GV_kAyPsug3IWMYvCVqTCOHsWwBFJRlsBgaDJh0dz35HEMQcjx7YemsDjbhPZTJ4PsTlOn93Psi9r-3VHrLc7AMmbvB13jWFlRpA3DcgvLVNIedNttqvBeNN0bfjvvs';
         return {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',

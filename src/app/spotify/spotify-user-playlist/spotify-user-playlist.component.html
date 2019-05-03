@@ -1,44 +1,61 @@
 <div class="container">
-  <div class="jumbotron page-background">
-    <form [formGroup]="playlistForm" (submit)="save($event)" class="row">
-      <div class="col-md-12">
-        <div class="form-group">
-          <div class="row">
-            <label>Nome</label>
-            <input name="name" [(ngModel)]="playlist.name" formControlName="name" class="form-control" autocomplete="off">
-            <div *ngIf="!playlistForm.controls.name.valid">
-              <span *ngIf="playlistForm.controls.name.errors.required && (playlistForm.controls.name.dirty || playlistForm.controls.name.touched)"
-                class="form-control alert-danger">
-                Nome é obrigatória
-              </span>
-              <span *ngIf="playlistForm.controls.name.errors.maxlength" class="form-control alert-danger">
-                Nome deve ter no máximo 100 caracteres
-              </span>
-            </div>
-          </div>
-          <div class="row">
-            <label>Descrição</label>
-            <input name="description" [(ngModel)]="playlist.description" formControlName="description" class="form-control" autocomplete="off">
-            <div *ngIf="!playlistForm.controls.description.valid">
-              <span *ngIf="playlistForm.controls.description.maxlength" class="form-control alert-danger">
-                Nome deve ter no máximo 300 caracteres
-              </span>
-            </div>
-          </div>
-        </div>
-        <button type="button" class="btn btn-default">
-          <i class="fa fa-ban" aria-hidden="true"></i> Cancelar
-        </button>
-        <button type="submit" class="btn btn-success" [disabled]="playlistForm.invalid">
-          <i class="fa fa-floppy-o" aria-hidden="true"></i> Criar
-        </button>
-        <hr>
-      </div>
-    </form>
+  <div class="pull-right">
+    <button type="button" class="btn btn-success btn-add-playlist" (click)="addPlaylist()">
+      <fa name="plus" size="2x"></fa>
+    </button>
   </div>
+  <div class="jumbotron">
+    <div class="pull-right">
+      <form *ngIf="playlistFormShow" [formGroup]="playlistForm" (submit)="save($event)" class="row form-add-playlist">
+        <div class="col-md-12">
+          <div class="form-group">
+            <div class="row">
+              <label>Nome</label>
+              <input name="name" [(ngModel)]="playlist.name" formControlName="name" class="form-control" autocomplete="off">
+              <div *ngIf="!playlistForm.controls.name.valid">
+                <span *ngIf="playlistForm.controls.name.errors.required && (playlistForm.controls.name.dirty || playlistForm.controls.name.touched)"
+                  class="form-control alert-danger">
+                  Nome é obrigatória
+                </span>
+                <span *ngIf="playlistForm.controls.name.errors.maxlength" class="form-control alert-danger">
+                  Nome deve ter no máximo 100 caracteres
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <label>Descrição</label>
+              <input name="description" [(ngModel)]="playlist.description" formControlName="description" class="form-control" autocomplete="off">
+              <div *ngIf="!playlistForm.controls.description.valid">
+                <span *ngIf="playlistForm.controls.description.maxlength" class="form-control alert-danger">
+                  Nome deve ter no máximo 300 caracteres
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="pull-right">
+            <button type="button" class="btn btn-playlist-cancel" (click)="cancelPlaylist()">
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-success btn-playlist-save" [disabled]="playlistForm.invalid">
+              Criar
+            </button>
+          </div>
+          <hr>
+        </div>
+      </form>
+    </div>
+    <h2>Minha Playlist</h2>
+    <div *ngFor="let item of userPlaylist.items">
+      <div class="row">
+        <span class="icon-playlist">
+          <fa name="music" size="2x"></fa>
+        </span>
+        <span>{{item.name}}</span>
+      </div>
+    </div>
+  </div>
+  <a [routerLink]="['/user']" class="btn btn-success">
+    Voltar
+  </a>
 </div>
-<ul>
-  <li *ngFor="let item of userPlaylist.items">
-    {{item.name}}
-  </li>
-</ul>
+

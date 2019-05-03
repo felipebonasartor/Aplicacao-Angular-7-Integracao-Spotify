@@ -35,6 +35,6 @@ export class SpotifyLoginComponent implements OnInit {
     // &response_type=${response_type}
     // &state=${state};`
 
-    return 'https://accounts.spotify.com/authorize?client_id=203d056607a24c6caee142fc67866230&redirect_uri=https://felipebonasartor.github.io/spotify-app-integration/callback&scope=user-read-private%20user-read-email&response_type=token&state=123';
+    return 'https://accounts.spotify.com/authorize?client_id=203d056607a24c6caee142fc67866230&redirect_uri=https://felipebonasartor.github.io/spotify-app-integration/callback&scope=user-read-private%20user-read-email%20playlist-read-private%20playlist-modify-private%20playlist-modify-public%20playlist-read-collaborative&response_type=token&state=123&&expires_in=3600';
   }
 }

@@ -9,10 +9,11 @@ import { SpotifyUserComponent } from './spotify-user/spotify-user.component';
 import { SpotifyCallbackTokenComponent } from './spotify-callback-token/spotify-callback-token.component';
 import { SpotifyService } from '../services/spotify-service';
 import { SpotifyUserPlaylistComponent } from './spotify-user-playlist/spotify-user-playlist.component';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 @NgModule({
     declarations: [SpotifyLoginComponent, SpotifyUserComponent, SpotifyCallbackTokenComponent, SpotifyUserPlaylistComponent],
-    imports: [HttpClientModule, CommonModule, RouterModule, FormsModule, ReactiveFormsModule],
+    imports: [HttpClientModule, CommonModule, RouterModule, FormsModule, ReactiveFormsModule, AngularFontAwesomeModule],
     providers: [SpotifyService],
     exports: [SpotifyLoginComponent]    
 })
