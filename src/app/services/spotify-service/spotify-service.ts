@@ -9,7 +9,7 @@ import { of } from 'rxjs/observable/of';
 @Injectable()
 export class SpotifyService {
     private apiUserProfileUrl: string = 'https://api.spotify.com/v1/me';
-    private apiUserPlaylistUrl: string = 'https://api.spotify.com/v1/me/playlists';    
+    private apiUserPlaylistUrl: string = 'https://api.spotify.com/v1/me/playlists';
 
     private user: {} = {};
     private user$: BehaviorSubject<{}>;
@@ -26,7 +26,7 @@ export class SpotifyService {
         return this.http.get(this.apiUserProfileUrl, this.getHttpOptions()).pipe(
             tap((user: {}) => {
                 this.user$.next(this.user);
-                localStorage.setItem('spotifyUserId', (user as any).id);                
+                localStorage.setItem('spotifyUserId', (user as any).id);
             }),
             catchError(this.handleError('getUserProfile'))
         );
@@ -41,12 +41,20 @@ export class SpotifyService {
         );
     }
 
-    public createPlaylist(playlist: {}): Observable<{}> {        
+    public createPlaylist(playlist: {}): Observable<{}> {
         let spotifyUserId = localStorage.getItem('spotifyUserId');
         let apiCreatePlaylistUrl = `https://api.spotify.com/v1/users/${spotifyUserId}/playlists`;
         return this.http.post(apiCreatePlaylistUrl, playlist, this.getHttpOptions())
             .pipe(
                 catchError(this.handleError('createPlaylist'))
+            );
+    }
+
+    public deletePlaylist(playlistId: string): Observable<{}> {
+        let apiDeletelaylistUrl = `https://api.spotify.com/v1/playlists/${playlistId}`;
+        return this.http.delete(apiDeletelaylistUrl, this.getHttpOptions())
+            .pipe(
+                catchError(this.handleError('deletePlaylist'))
             );
     }
 
@@ -56,9 +64,9 @@ export class SpotifyService {
         let redirect_uri = 'https://felipebonasartor.github.io/spotify-app-integration/callback';
         let response_type = 'token';
         let state = 123;
-    
+
         return `https://accounts.spotify.com/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scopes}&response_type=${response_type}&state=${state}}`;
-      }
+    }
 
     private handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
@@ -68,7 +76,7 @@ export class SpotifyService {
     }
 
     getHttpOptions() {
-        const access_token = localStorage.getItem('access_token');        
+        const access_token = localStorage.getItem('access_token');
         return {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',

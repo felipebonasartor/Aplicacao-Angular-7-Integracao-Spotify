@@ -11,10 +11,11 @@ import { SpotifyCallbackTokenComponent } from './spotify-callback-token/spotify-
 import { SpotifyUserPlaylistComponent } from './spotify-user-playlist/spotify-user-playlist.component';
 import { SpotifyService } from '../services/spotify-service/spotify-service';
 import { SpotifyPlaylistFormComponent } from './spotify-playlist-form/spotify-playlist-form.component';
+import { SpotifyPlaylistDeleteComponent } from './spotify-playlist-delete/spotify-playlist-delete.component';
 
 
 @NgModule({
-    declarations: [SpotifyLoginComponent, SpotifyUserComponent, SpotifyCallbackTokenComponent, SpotifyUserPlaylistComponent, SpotifyPlaylistFormComponent],
+    declarations: [SpotifyLoginComponent, SpotifyUserComponent, SpotifyCallbackTokenComponent, SpotifyUserPlaylistComponent, SpotifyPlaylistFormComponent, SpotifyPlaylistDeleteComponent],
     imports: [HttpClientModule, CommonModule, RouterModule, FormsModule, ReactiveFormsModule, AngularFontAwesomeModule],
     providers: [SpotifyService],
     exports: [SpotifyLoginComponent]    
