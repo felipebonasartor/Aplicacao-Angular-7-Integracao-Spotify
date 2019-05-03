@@ -5,12 +5,9 @@ import { BehaviorSubject } from 'rxjs';
 import { catchError } from 'rxjs/operators/catchError';
 import { tap } from 'rxjs/operators/tap';
 import { of } from 'rxjs/observable/of';
-import { SpotifyUser } from '../shared/spotify-user';
 
 @Injectable()
 export class SpotifyService {
-
-
     private apiUserProfileUrl: string = 'https://api.spotify.com/v1/me';
     private apiUserPlaylistUrl: string = 'https://api.spotify.com/v1/me/playlists';    
 
@@ -19,13 +16,6 @@ export class SpotifyService {
 
     private userPlaylist: {} = {};
     private userPlaylist$: BehaviorSubject<{}>;
-
-    private httpOptions: {} = {
-        headers: new HttpHeaders({
-            'Content-Type': 'application/json',
-            'Authorization': 'my-auth-token'
-        })
-    };
 
     constructor(private http: HttpClient) {
         this.user$ = new BehaviorSubject<{}>(this.user);
@@ -60,6 +50,16 @@ export class SpotifyService {
             );
     }
 
+    public getTokenUrl() {
+        let scopes = 'user-read-private user-read-email playlist-read-private playlist-modify-private playlist-modify-public playlist-read-collaborative';
+        let client_id = '203d056607a24c6caee142fc67866230';
+        let redirect_uri = 'https://felipebonasartor.github.io/spotify-app-integration/callback';
+        let response_type = 'token';
+        let state = 123;
+    
+        return `https://accounts.spotify.com/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scopes}&response_type=${response_type}&state=${state}}`;
+      }
+
     private handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
             (result as any) = error;
@@ -68,8 +68,7 @@ export class SpotifyService {
     }
 
     getHttpOptions() {
-        const access_token = localStorage.getItem('access_token');
-        // const access_token = 'BQAbTx_EYVhFI9gmXSXU3wKKcsitCcmMn5NTgXZB-7wucgT5YOYLdGepTrxkz5Nsy9IWLA_afgf7Em32M26WCZW0oP4_YFrpIvGmQE40uKgzSfLRhHl7GV_kAyPsug3IWMYvCVqTCOHsWwBFJRlsBgaDJh0dz35HEMQcjx7YemsDjbhPZTJ4PsTlOn93Psi9r-3VHrLc7AMmbvB13jWFlRpA3DcgvLVNIedNttqvBeNN0bfjvvs';
+        const access_token = localStorage.getItem('access_token');        
         return {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',

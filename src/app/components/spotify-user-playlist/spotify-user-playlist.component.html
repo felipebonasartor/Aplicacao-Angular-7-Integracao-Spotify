@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="pull-right">
+    <button type="button" class="btn btn-success btn-add-playlist" (click)="addPlaylist()">
+      <fa name="plus" size="2x"></fa>
+    </button>
+  </div>
+  <div class="jumbotron">
+    <div *ngIf="playlistFormShow" class="pull-right">
+      <spotify-playlist-form></spotify-playlist-form>
+    </div>
+    <h2>Minha Playlist</h2>
+    <div *ngFor="let item of userPlaylist.items">
+      <div class="row">
+        <span class="icon-playlist">
+          <fa name="music" size="2x"></fa>
+        </span>
+        <span>{{item.name}}</span>
+      </div>
+    </div>
+  </div>
+  <a [routerLink]="['/user']" class="btn btn-success">
+    Voltar
+  </a>
+</div>
