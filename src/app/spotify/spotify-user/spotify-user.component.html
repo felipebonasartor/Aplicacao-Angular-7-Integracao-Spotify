@@ -1,3 +1,29 @@
-<p>
-  spotify-user works!
-</p>
+<div class="container">
+  <div class="jumbotron">
+    <h1>Informações do usuário</h1>
+    <div class="col-md-6">
+      <div class="form-group">
+        <img class="img-profile" src="{{urlImg}}" alt="titulo" width="80" height="80">
+        <div class="row">
+          <label>Nome:</label>
+          <span>{{user.display_name}}</span>
+        </div>
+        <div class="row">
+          <label>País:</label>
+          <span>{{user.country}}</span>
+        </div>
+        <div class="row">
+          <label>E-mail:</label>
+          <span>{{user.email}}</span>
+        </div>
+        <div class="row">
+          <label>Nº Seguidores:</label>
+          <span>{{user.followers?.total}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a [routerLink]="['/user/playlist']" class="btn btn-success">
+    <fa name="music"></fa> Minha Playlist
+  </a>

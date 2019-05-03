@@ -1,3 +1,5 @@
+import 'rxjs/add/operator/map';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -6,6 +8,7 @@ import { AppComponent } from './app.component';
 
 import { SpotifyModule } from './spotify/spotify.module';
 import { AuthGuard } from './services/auth.guard';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,6 +18,7 @@ import { AuthGuard } from './services/auth.guard';
     BrowserModule,
     AppRoutingModule,
     SpotifyModule,
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]

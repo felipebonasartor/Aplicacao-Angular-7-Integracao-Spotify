@@ -19,6 +19,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
         const response = this.extractApiResponse(next.fragment);
         if (response) {
+            console.log(response.access_token);
             localStorage.setItem('access_token', response.access_token);
             localStorage.setItem('access_token_expires', response.expires_in.toString());
         }
