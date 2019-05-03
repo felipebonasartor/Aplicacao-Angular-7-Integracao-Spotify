@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { tokenize } from '@angular/compiler/src/ml_parser/lexer';
 import { FormGroup } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'spotify-login',
@@ -11,13 +11,14 @@ import { FormGroup } from '@angular/forms';
 export class SpotifyLoginComponent implements OnInit {
   formLogin: FormGroup;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
   loginSpotify() {
-    window.location.href = this.getUrl();
+    // window.location.href = this.getUrl();
+    this.router.navigate(['/user'])
   }
 
   getUrl() {
