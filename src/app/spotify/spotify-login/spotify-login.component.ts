@@ -17,8 +17,8 @@ export class SpotifyLoginComponent implements OnInit {
   }
 
   loginSpotify() {
-    // window.location.href = this.getUrl();
-    this.router.navigate(['/user'])
+    window.location.href = this.getUrl();
+    // this.router.navigate(['/user'])
   }
 
   getUrl() {
