@@ -5,9 +5,8 @@
     </button>
   </div>
   <div class="jumbotron">
-    <div *ngIf="playlistFormShow" class="pull-right">
-      <spotify-playlist-form></spotify-playlist-form>
-    </div>
+    <spotify-playlist-form *ngIf="playlistFormShow"></spotify-playlist-form>
+    <spotify-playlist-delete *ngIf="confirmDelete"></spotify-playlist-delete>
     <h2>Minha Playlist</h2>
     <div *ngFor="let item of userPlaylist.items">
       <div class="row">
@@ -15,6 +14,11 @@
           <fa name="music" size="2x"></fa>
         </span>
         <span>{{item.name}}</span>
+        <span class="icon-delete">
+          <a (click)="deletePlaylist(item.id)">
+            <fa name="minus-circle"></fa>
+          </a>
+        </span>
       </div>
     </div>
   </div>
